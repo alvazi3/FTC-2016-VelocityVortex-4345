@@ -4,7 +4,7 @@ FTC Android Studio project for ART 4345's robot.
 #### Programmers
 Miles P. `mpolson64` Olson  
 Chris `SourMongoose` Xiong  
-Avichal `Aviously` Goel
+Avichal `Aviously` Goel  
 Zachary `zachrobo` Abraham
 
 This is the FTC Robot Controller app created by ART 4345 for use in the 2016 FTC game Velocity Vortex.
