@@ -13,11 +13,12 @@ public class TeleOpSingle extends OpMode {
     @Override
     public void init() {
         drivetrain = new Drivetrain(hardwareMap.dcMotor.get("left_drive"), hardwareMap.dcMotor.get("right_drive"));
+        drivetrain.stop();
     }
 
     @Override
     public void start() {
-    
+        drivetrain.stop();
     }
 
     @Override
@@ -26,6 +27,6 @@ public class TeleOpSingle extends OpMode {
     }
 
     public void stop() {
-        drivetrain.arcadeDrive(0, 0);
+        drivetrain.stop();
     }
 }

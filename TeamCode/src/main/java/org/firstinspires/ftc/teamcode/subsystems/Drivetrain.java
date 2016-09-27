@@ -27,7 +27,10 @@ public class Drivetrain {
         double leftPower = Range.clip(power - turn, -1, 1);
         double rightPower = Range.clip(power + turn, -1, 1);
 
-        leftDriveMotor.setPower(leftPower);
-        rightDriveMotor.setPower(rightPower);
+        tankDrive(leftPower, rightPower);
+    }
+
+    public void stop() {
+        tankDrive(0, 0);
     }
 }
