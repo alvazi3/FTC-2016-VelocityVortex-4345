@@ -11,8 +11,8 @@ public class Drivetrain {
         this.leftDriveMotor = leftDriveMotor;
         this.rightDriveMotor = rightDriveMotor;
 
+        this.leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
         this.rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
-        this.rightDriveMotor.setDirection(DcMotor.Direction.FORWARD);
 
         leftDriveMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightDriveMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -24,8 +24,8 @@ public class Drivetrain {
     }
 
     public void arcadeDrive(double power, double turn) {
-        double leftPower = Range.clip(power - turn, -1, 1);
-        double rightPower = Range.clip(power + turn, -1, 1);
+        double leftPower = Range.clip(power + turn, -1, 1);
+        double rightPower = Range.clip(power - turn, -1, 1);
 
         tankDrive(leftPower, rightPower);
     }
