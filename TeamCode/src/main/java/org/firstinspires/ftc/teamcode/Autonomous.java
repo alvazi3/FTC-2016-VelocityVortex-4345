@@ -13,6 +13,15 @@ public class Autonomous extends OpMode {
     public void init(){
         beaconActivator = new BeaconActivator(hardwareMap.colorSensor.get("color_sensor"), hardwareMap.deviceInterfaceModule.get("cdim"), 15 );
     }
+    @Override
+    public void start(){
+        
+    }
+    @Override
     public void loop(){
+    }
+    @Override
+    public void stop(){
+
     }
 }
