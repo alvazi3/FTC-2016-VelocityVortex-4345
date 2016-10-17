@@ -33,6 +33,14 @@ public class TeleOpSingle extends OpMode {
         if (gamepad1.b) intake.rollIn();
         //else if (gamepad1.a) intake.rollOut();
         else intake.stop();
+
+        if (gamepad1.right_trigger > 0) {
+            try {
+                intake.rotate(1);
+            } catch (InterruptedException e) {}
+
+            while (gamepad1.right_trigger > 0);
+        }
     }
 
     public void stop() {
