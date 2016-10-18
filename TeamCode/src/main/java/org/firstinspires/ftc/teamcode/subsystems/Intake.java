@@ -7,7 +7,7 @@ import static java.lang.Thread.sleep;
 
 public class Intake {
 
-    private static final double ROTATIONS_PER_MINUTE = 160;
+    private static final double ROTATIONS_PER_MINUTE = 147;
 
     private DcMotor intakeMotor;
 
