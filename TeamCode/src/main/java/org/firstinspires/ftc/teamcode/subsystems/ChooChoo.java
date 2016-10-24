@@ -21,7 +21,7 @@ public class ChooChoo {
         chooChooMotor.setPower(motorPower);
     }
     public void stop(){
-
+        chooChooMotor.setPower(0);
     }
 
 }
