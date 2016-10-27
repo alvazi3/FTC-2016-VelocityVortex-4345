@@ -8,9 +8,7 @@ All custom ART subsystems and OpModes can be found in `TeamCode.src.main.java.or
 Miles P. `mpolson64` Olson  
 Chris `SourMongoose` Xiong  
 Avichal `Aviously` Goel  
-Pranav `rip zach` Viswanathan
-Jason `zachidillery op pls nerf kthx bai` Wang
-Akshay `relish in your defeat zach` Bodla
+Zachary `zachrobo` Abraham
 ## Robot Design
 Our robot uses a two-motor tank drive with omni wheels in the front for maneuverability. 
 
@@ -19,3 +17,4 @@ Our robot uses a two-motor tank drive with omni wheels in the front for maneuver
 | Input         | Action        |
 | ------------- | ------------- |
 | Left stick    | Arcade drive  |
+| A             | Output        |
