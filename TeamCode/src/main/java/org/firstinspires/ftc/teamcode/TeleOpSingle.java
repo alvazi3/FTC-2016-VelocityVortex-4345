@@ -14,11 +14,13 @@ public class TeleOpSingle extends OpMode {
     @Override
     public void init() {
         drivetrain = new Drivetrain(hardwareMap.dcMotor.get("left_drive"), hardwareMap.dcMotor.get("right_drive"));
-        chooChoo = new ChooChoo(hardwareMap.dcMotor.get("catapult"));
         drivetrain.stop();
 
         intake = new Intake(hardwareMap.dcMotor.get("intake"));
         intake.stop();
+
+        chooChoo = new ChooChoo(hardwareMap.dcMotor.get("catapult"));
+        chooChoo.stop();
     }
 
     @Override

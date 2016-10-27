@@ -20,8 +20,8 @@ public class ChooChoo {
     public void catapultBall(double motorPower){
         chooChooMotor.setPower(motorPower);
     }
+
     public void stop(){
         chooChooMotor.setPower(0);
     }
-
 }
