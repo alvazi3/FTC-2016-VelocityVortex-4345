@@ -5,6 +5,14 @@ import com.qualcomm.robotcore.hardware.DeviceInterfaceModule;
 import com.qualcomm.robotcore.hardware.LED;
 import com.qualcomm.robotcore.hardware.Servo;
 
+/*
+ * IMPORTANT TO REMEMBER FOR COLOR SENSOR:
+ * -I2C must be plugged in so that the black cable is aligned with black mark on CDIM
+ * -LED cable should be plugged into the pin furthest from the black mark on the CDIM
+ * -Must be registered as an "Adafruit Color Sensor" in hardware map
+ */
+
+
 public class BeaconActivator {
 
     private final double SERVO_LEFT_POSITION = 0, SERVO_RIGHT_POSITION = 1;
