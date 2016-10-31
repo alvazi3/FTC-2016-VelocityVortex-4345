@@ -2,30 +2,38 @@ package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DeviceInterfaceModule;
-import com.qualcomm.robotcore.hardware.DigitalChannelController;
+import com.qualcomm.robotcore.hardware.LED;
 import com.qualcomm.robotcore.hardware.Servo;
+
+/*
+ * IMPORTANT TO REMEMBER FOR COLOR SENSOR:
+ * -I2C must be plugged in so that the black cable is aligned with black mark on CDIM
+ * -LED cable should be plugged into the pin furthest from the black mark on the CDIM
+ * -Must be registered as an "Adafruit Color Sensor" in hardware map
+ */
+
 
 public class BeaconActivator {
 
     private final double SERVO_LEFT_POSITION = 0, SERVO_RIGHT_POSITION = 1;
 
     private ColorSensor rgbSensor;
+    private LED onboardLed;
     private DeviceInterfaceModule cdim;
     private Servo buttonPusher;
 
     private int ledChannel;
     private boolean isLedLit;
 
-    public BeaconActivator(ColorSensor rgbSensor, DeviceInterfaceModule cdim, int ledChannel, Servo buttonPusher) {
-        this.rgbSensor = rgbSensor; 
+    public BeaconActivator(ColorSensor rgbSensor, DeviceInterfaceModule cdim, LED onboardLed, Servo buttonPusher) {
         this.cdim = cdim;
-        this.ledChannel = ledChannel;
+        this.rgbSensor = rgbSensor;
+        this.onboardLed = onboardLed;
         this.buttonPusher = buttonPusher;
 
         isLedLit = false;
 
-        cdim.setDigitalChannelMode(this.ledChannel, DigitalChannelController.Mode.OUTPUT);
-        cdim.setDigitalChannelState(this.ledChannel, isLedLit);
+        onboardLed.enable(false);
 
         buttonPusher.scaleRange(SERVO_LEFT_POSITION, SERVO_RIGHT_POSITION);
     }
@@ -63,17 +71,17 @@ public class BeaconActivator {
     }
 
     public boolean toggleLed() {
-        cdim.setDigitalChannelState(ledChannel, !isLedLit);
+        onboardLed.enable(!isLedLit);
         isLedLit = !isLedLit;
         return isLedLit;
     }
 
     public int[] getRawColors() {
         return new int[]{
-            rgbSensor.alpha(),
-            rgbSensor.red(),
-            rgbSensor.green(),
-            rgbSensor.blue()
+            rgbSensor.alpha() * 255 / 800,
+            rgbSensor.red() * 255 / 800,
+            rgbSensor.green() * 255 / 800,
+            rgbSensor.blue() * 255 / 800
         };
     }
 }
