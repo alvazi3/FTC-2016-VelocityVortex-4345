@@ -29,6 +29,9 @@ public class TeleOpSingle extends OpMode {
     @Override
     public void loop() {
         drivetrain.arcadeDrive(gamepad1.left_stick_y, gamepad1.left_stick_x);
+        int[] encoderPosition = drivetrain.getCurrentPosition();
+        telemetry.addData("Left Drive Encoder", encoderPosition[0]);
+        telemetry.addData("Right Drive Encoder", encoderPosition[1]);
 
         if (gamepad1.b) intake.rollIn();
         //else if (gamepad1.a) intake.rollOut();
