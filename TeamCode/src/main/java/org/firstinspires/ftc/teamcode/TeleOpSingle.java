@@ -46,8 +46,12 @@ public class TeleOpSingle extends OpMode {
             while (gamepad1.right_trigger > 0);
         }
 
-        if (gamepad1.a) chooChoo.catapultBall(1);
-        else chooChoo.stop();
+        if (gamepad1.a) {
+            chooChoo.rotate(1);
+            while (gamepad1.a);
+        } else {
+            chooChoo.stop();
+        }
     }
 
     public void stop() {
