@@ -30,8 +30,9 @@ public class TeleOpSingle extends OpMode {
     public void loop() {
         drivetrain.arcadeDrive(gamepad1.left_stick_y, gamepad1.left_stick_x);
 
-        if (gamepad1.b) intake.rollIn();
-        //else if (gamepad1.a) intake.rollOut();
+        if (gamepad1.b) {
+            intake.rollIn();
+        }
         else intake.stop();
 
         if (gamepad1.right_trigger > 0) {
