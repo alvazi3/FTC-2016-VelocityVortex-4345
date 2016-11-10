@@ -1,37 +1,35 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
-
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.Range;
-/**
- * Created by member on 10/17/16.
- */
+
+import static java.lang.Thread.sleep;
+
 public class ChooChoo {
 
-    private static final int TICKS_PER_ROTATION = 1440;
+    private static final double ROTATIONS_PER_MINUTE = 147;
 
     private DcMotor chooChooMotor;
 
-    public ChooChoo(DcMotor chooChooMotor){
+    public ChooChoo(DcMotor chooChooMotor) {
         this.chooChooMotor = chooChooMotor;
+
         this.chooChooMotor.setDirection(DcMotor.Direction.FORWARD);
-        chooChooMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        chooChooMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        chooChooMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
-    public void catapultBall(double motorPower){
-        chooChooMotor.setPower(motorPower);
+    public void catapultBall() {
+        chooChooMotor.setPower(1);
     }
 
-    public void rotate(double rotations) {
-        chooChooMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        catapultBall(1);
-        while (chooChooMotor.getCurrentPosition() < rotations * TICKS_PER_ROTATION);
-        stop();
-    }
-
-    public void stop(){
+    public void stop() {
         chooChooMotor.setPower(0);
+    }
+
+    public void rotate(double rotations) throws InterruptedException {
+        catapultBall();
+        sleep((long)(1000 * (1 / (ROTATIONS_PER_MINUTE / 60) * rotations)));
+        stop();
     }
 }
