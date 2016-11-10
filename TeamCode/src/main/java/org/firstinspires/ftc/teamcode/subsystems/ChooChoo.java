@@ -1,13 +1,14 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 import static java.lang.Thread.sleep;
 
 public class ChooChoo {
 
-    private static final double ROTATIONS_PER_MINUTE = 147;
+    private static final double ROTATIONS_PER_SECONDS = 147 / 60;
 
     private DcMotor chooChooMotor;
 
@@ -19,7 +20,7 @@ public class ChooChoo {
         chooChooMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
-    public void catapultBall() {
+    public void rotate() {
         chooChooMotor.setPower(1);
     }
 
@@ -27,9 +28,11 @@ public class ChooChoo {
         chooChooMotor.setPower(0);
     }
 
-    public void rotate(double rotations) throws InterruptedException {
-        catapultBall();
-        sleep((long)(1000 * (1 / (ROTATIONS_PER_MINUTE / 60) * rotations)));
-        stop();
+    public void catapultBall(double rotations) {
+        ElapsedTime timer = new ElapsedTime();
+        timer.reset();
+        chooChooMotor.setPower(1);
+        while(timer.seconds() < rotations / ROTATIONS_PER_SECONDS);
+        chooChooMotor.setPower(0);
     }
 }

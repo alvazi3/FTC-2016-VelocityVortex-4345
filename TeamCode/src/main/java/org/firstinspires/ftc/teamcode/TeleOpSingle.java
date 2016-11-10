@@ -38,11 +38,6 @@ public class TeleOpSingle extends OpMode {
         else if (gamepad1.a) intake.rollOut();
         else intake.stop();
 
-        /*
-        if (gamepad1.x) chooChoo.catapultBall();
-        else chooChoo.stop();
-        */
-
         if (gamepad1.right_trigger > 0.1) {
             try {
                 intake.rotate(1);
@@ -52,10 +47,7 @@ public class TeleOpSingle extends OpMode {
         }
 
         if (gamepad1.left_trigger > 0.1) {
-            try {
-                chooChoo.rotate(1.333);
-            } catch (InterruptedException e) {}
-
+            chooChoo.catapultBall(1.333);
             while (gamepad1.left_trigger > 0.1) ;
         }
     }
