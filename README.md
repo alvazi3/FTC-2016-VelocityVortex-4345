@@ -17,7 +17,7 @@ Our robot uses a two-motor tank drive with omni wheels in the front for maneuver
 ### Single Driver
 | Input         | Action             |
 | ------------- | ------------------ |
-| Left stick    | Arcade drive       |
+| Left + right sticks    | Arcade drive       |
 | B             | Intake             |
 | Right trigger | Rotate intake once |
 
