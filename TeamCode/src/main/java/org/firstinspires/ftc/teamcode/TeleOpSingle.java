@@ -46,7 +46,7 @@ public class TeleOpSingle extends OpMode {
             while (gamepad1.right_trigger > 0.1);
         }
 
-        catapultControlls();
+        catapultControls();
     }
 
     public void stop() {
@@ -55,7 +55,7 @@ public class TeleOpSingle extends OpMode {
         chooChoo.stop();
     }
 
-    private void catapultControlls() {
+    private void catapultControls() {
         if (gamepad1.x) {
             chooChoo.rotate();
             while(gamepad1.x);
