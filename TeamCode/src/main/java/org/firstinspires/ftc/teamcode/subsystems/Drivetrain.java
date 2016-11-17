@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.util.Range;
 
 public class Drivetrain {
 
-    private final int TICKS_PER_ROTATION = 1440;
+    private final int TICKS_PER_ROTATION = 1000;
     private final int WHEEL_DIAMETER = 4;   //Inches
     private final int BOT_DIAMETER = 15;    //Inches
     private final double ACCEPTABLE_THRESHOLD = 1;  //Inches
