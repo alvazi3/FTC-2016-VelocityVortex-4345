@@ -32,21 +32,9 @@ public class TeleOpSingle extends OpMode {
 
     @Override
     public void loop() {
-        drivetrain.arcadeDrive(gamepad1.left_stick_y, gamepad1.right_stick_x);
-        telemetry.addData("Left Drive Encoder", drivetrain.getCurrentPosition());
+        drivetrain.arcadeDrive(gamepad1.left_stick_y, gamepad1.left_stick_x);
 
-        if (gamepad1.b) intake.rollIn();
-        else if (gamepad1.a) intake.rollOut();
-        else intake.stop();
-
-        if (gamepad1.right_trigger > 0.1) {
-            try {
-                intake.rotate(1);
-            } catch (InterruptedException e) {}
-
-            while (gamepad1.right_trigger > 0.1);
-        }
-
+        intakeControls();
         catapultControls();
         telemetry.addData("Catapult Position", chooChoo.getPosition());
     }
@@ -71,6 +59,29 @@ public class TeleOpSingle extends OpMode {
         }
         else {
             chooChoo.stop();
+        }
+    }
+
+    private void intakeControls() {
+        if (gamepad1.b) {
+            intake.rollIn();
+        }
+        else if (gamepad1.a) {
+            intake.rollOut();
+        }
+
+        else if (gamepad1.right_trigger > 0.1) {
+            try {
+                intake.rotate(1);
+            } catch (InterruptedException e) {
+
+            }
+
+            while (gamepad1.right_trigger > 0.1);
+        }
+
+        else {
+            intake.stop();
         }
     }
 }
