@@ -47,6 +47,7 @@ public class TeleOpSingle extends OpMode {
         }
 
         catapultControls();
+        telemetry.addData("Catapult Position", chooChoo.getPosition());
     }
 
     public void stop() {
@@ -60,13 +61,12 @@ public class TeleOpSingle extends OpMode {
             chooChoo.rotate();
             while(gamepad1.x);
         }
-        else if (gamepad1.y) {
-            chooChoo.catapultBall(1.333);
-            while (gamepad1.y);
-        }
         else if (gamepad1.right_bumper) {
-            chooChoo.catapultBallEncoder(1);
+            chooChoo.catapultBall(1);
             while (gamepad1.right_bumper);
+        }
+        else if (gamepad1.back) {
+            chooChoo.resetEncoder();
         }
         else {
             chooChoo.stop();

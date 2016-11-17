@@ -8,17 +8,15 @@ import static java.lang.Thread.sleep;
 
 public class ChooChoo {
 
-    private static final double ROTATIONS_PER_SECONDS = 147 / 60;
-    private static final double TICKS_PER_ROTATION = 1440;
+    private static final double TICKS_PER_ROTATION = 1000;
 
     private DcMotor chooChooMotor;
 
     public ChooChoo(DcMotor chooChooMotor) {
         this.chooChooMotor = chooChooMotor;
-
         this.chooChooMotor.setDirection(DcMotor.Direction.FORWARD);
 
-        chooChooMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        resetEncoder();
     }
 
     public void rotate() {
@@ -29,17 +27,13 @@ public class ChooChoo {
         chooChooMotor.setPower(0);
     }
 
-    public void catapultBall(double rotations) {
-        ElapsedTime timer = new ElapsedTime();
-        timer.reset();
-        chooChooMotor.setPower(1);
-        while(timer.seconds() < rotations / ROTATIONS_PER_SECONDS);
-        chooChooMotor.setPower(0);
-    }
-
-    public void catapultBallEncoder(double rotations) {
+    public void resetEncoder() {
         chooChooMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         chooChooMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+
+    public void catapultBall(double rotations) {
+        resetEncoder();
 
         while(chooChooMotor.getCurrentPosition() < TICKS_PER_ROTATION * rotations) {
             chooChooMotor.setPower(0.75);
