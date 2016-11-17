@@ -9,7 +9,6 @@ Miles P. `mpolson64` Olson
 Chris `SourMongoose` Xiong  
 Avichal `Aviously` Goel  
 Zachary `zachrobo` Abraham
-
 ## Robot Design
 Our robot uses a two-motor tank drive with omni wheels in the front for maneuverability. 
 
@@ -20,4 +19,4 @@ Our robot uses a two-motor tank drive with omni wheels in the front for maneuver
 | Left + right sticks    | Arcade drive       |
 | B             | Intake             |
 | Right trigger | Rotate intake once |
-
+| A             | Output        |

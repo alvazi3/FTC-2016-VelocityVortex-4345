@@ -22,7 +22,6 @@ public class BeaconActivator {
     private DeviceInterfaceModule cdim;
     private Servo buttonPusher;
 
-    private int ledChannel;
     private boolean isLedLit;
 
     public BeaconActivator(ColorSensor rgbSensor, DeviceInterfaceModule cdim, LED onboardLed, Servo buttonPusher) {
@@ -39,11 +38,19 @@ public class BeaconActivator {
     }
 
     public void activateButton(boolean isTeamRed) {
-        if(isRed()) {
-            setLeft();
+        if(isTeamRed) {
+            if (isRed()) {
+                setLeft();
+            } else {
+                setRight();
+            }
         }
         else {
-            setRight();
+            if (!isRed()) {
+                setLeft();
+            } else {
+                setRight();
+            }
         }
     }
 
@@ -63,7 +70,7 @@ public class BeaconActivator {
 
     public void setLed(boolean lit) {
         isLedLit = lit;
-        cdim.setDigitalChannelState(ledChannel, isLedLit);
+        onboardLed.enable(isLedLit);
     }
 
     public boolean isLedLit() {
@@ -76,7 +83,7 @@ public class BeaconActivator {
         return isLedLit;
     }
 
-    public int[] getRawColors() {
+    public int[] getRawColors() {   //Values range 0-255
         return new int[]{
             rgbSensor.alpha() * 255 / 800,
             rgbSensor.red() * 255 / 800,

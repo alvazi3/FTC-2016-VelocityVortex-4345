@@ -6,7 +6,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.subsystems.BeaconActivator;
 
 @Autonomous(name="Unnamed4345: Beacon Activator Test", group="unnamed4345")
-
 public class BeaconActivatorTest extends OpMode{
 
     BeaconActivator beaconActivator;
