@@ -20,7 +20,7 @@ public class Drivetrain {
         this.rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
 
         leftDriveMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightDriveMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightDriveMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     public void tankDrive(double leftPower, double rightPower) {
@@ -39,47 +39,37 @@ public class Drivetrain {
         tankDrive(0, 0);
     }
 
-    public int[] getCurrentPosition() {
-        return new int[] {
-                leftDriveMotor.getCurrentPosition(),
-                rightDriveMotor.getCurrentPosition()
-        };
+    public void resetEncoder() {
+        leftDriveMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftDriveMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    public void resetEncoders() {
-        leftDriveMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightDriveMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftDriveMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightDriveMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    public int getCurrentPosition() {
+        return leftDriveMotor.getCurrentPosition();
     }
 
     public void driveTo(double position) {
-        leftDriveMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        rightDriveMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
         double rotations = position / (WHEEL_DIAMETER * Math.PI);
 
-        leftDriveMotor.setTargetPosition((int) (position * TICKS_PER_ROTATION));
-        rightDriveMotor.setTargetPosition((int) (position * TICKS_PER_ROTATION));
+        arcadeDrive(0.75, 0);
 
-        while(Math.abs(rotations * TICKS_PER_ROTATION - leftDriveMotor.getCurrentPosition()) > ACCEPTABLE_THRESHOLD || Math.abs(rotations * TICKS_PER_ROTATION - rightDriveMotor.getCurrentPosition()) > ACCEPTABLE_THRESHOLD);
+        while(Math.abs(rotations * TICKS_PER_ROTATION - leftDriveMotor.getCurrentPosition()) > ACCEPTABLE_THRESHOLD);
 
-        leftDriveMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightDriveMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        stop();
     }
 
     public void turnTo(double angle) {
-        leftDriveMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        rightDriveMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
         double rotations = (BOT_DIAMETER / WHEEL_DIAMETER) * (-1 * angle / 360);
 
-        leftDriveMotor.setTargetPosition((int) (rotations * TICKS_PER_ROTATION));
-        rightDriveMotor.setTargetPosition((int) (rotations * TICKS_PER_ROTATION));
+        if (angle > 0) {
+            tankDrive(-0.5, 0.5);
+        }
+        else {
+            tankDrive(0.5, -0.5);
+        }
 
-        while(Math.abs(rotations * TICKS_PER_ROTATION - leftDriveMotor.getCurrentPosition()) > ACCEPTABLE_THRESHOLD || Math.abs(rotations * TICKS_PER_ROTATION - rightDriveMotor.getCurrentPosition()) > ACCEPTABLE_THRESHOLD);
+        while(Math.abs(rotations * TICKS_PER_ROTATION - leftDriveMotor.getCurrentPosition()) > ACCEPTABLE_THRESHOLD);
 
-        leftDriveMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightDriveMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        stop();
     }
 }
