@@ -14,9 +14,11 @@ Our robot uses a two-motor tank drive with omni wheels in the front for maneuver
 
 ## Control Schemes
 ### Single Driver
-| Input         | Action             |
-| ------------- | ------------------ |
-| Left + right sticks    | Arcade drive       |
-| B             | Intake             |
-| Right trigger | Rotate intake once |
-| A             | Output        |
+| Input         | Action                |
+| ------------- | ------------------    |
+| Left + right sticks    | Arcade drive |
+| X             | Catapult (manual)     |
+| Y             | Catapult (automatic)  |
+| A             | Intake (reverse)      |
+| B             | Intake                |
+| Right trigger | Intake (1 rotation in)|

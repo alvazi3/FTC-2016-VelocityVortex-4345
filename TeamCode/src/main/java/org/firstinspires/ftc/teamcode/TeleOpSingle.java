@@ -50,9 +50,9 @@ public class TeleOpSingle extends OpMode {
             chooChoo.rotate();
             while(gamepad1.x);
         }
-        else if (gamepad1.right_bumper) {
+        else if (gamepad1.y) {
             chooChoo.catapultBall(1);
-            while (gamepad1.right_bumper);
+            while (gamepad1.y);
         }
         else if (gamepad1.back) {
             chooChoo.resetEncoder();
