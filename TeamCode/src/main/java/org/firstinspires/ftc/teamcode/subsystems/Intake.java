@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 import static java.lang.Thread.sleep;
@@ -32,8 +33,10 @@ public class Intake {
     }
 
     public void rotate(double rotations) throws InterruptedException {
+        ElapsedTime timer = new ElapsedTime();
+        timer.reset();
         rollIn();
-        sleep((long)(1000 * (1 / (ROTATIONS_PER_MINUTE / 60) * rotations)));
+        while (timer.seconds() < 1 / (ROTATIONS_PER_MINUTE / 60) * rotations);
         stop();
     }
 }

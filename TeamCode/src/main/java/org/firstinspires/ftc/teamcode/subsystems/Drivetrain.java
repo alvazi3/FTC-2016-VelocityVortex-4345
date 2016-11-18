@@ -5,6 +5,11 @@ import com.qualcomm.robotcore.util.Range;
 
 public class Drivetrain {
 
+    private final int TICKS_PER_ROTATION = 1000;
+    private final int WHEEL_DIAMETER = 4;   //Inches
+    private final int BOT_DIAMETER = 15;    //Inches
+    private final double ACCEPTABLE_THRESHOLD = 1;  //Inches
+
     private DcMotor leftDriveMotor, rightDriveMotor;
 
     public Drivetrain(DcMotor leftDriveMotor, DcMotor rightDriveMotor) {
@@ -14,7 +19,7 @@ public class Drivetrain {
         this.leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
         this.rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
 
-        leftDriveMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftDriveMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightDriveMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
@@ -32,5 +37,39 @@ public class Drivetrain {
 
     public void stop() {
         tankDrive(0, 0);
+    }
+
+    public void resetEncoder() {
+        leftDriveMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftDriveMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+
+    public int getCurrentPosition() {
+        return leftDriveMotor.getCurrentPosition();
+    }
+
+    public void driveTo(double position) {
+        double rotations = position / (WHEEL_DIAMETER * Math.PI);
+
+        arcadeDrive(0.75, 0);
+
+        while(Math.abs(rotations * TICKS_PER_ROTATION - leftDriveMotor.getCurrentPosition()) > ACCEPTABLE_THRESHOLD);
+
+        stop();
+    }
+
+    public void turnTo(double angle) {
+        double rotations = (BOT_DIAMETER / WHEEL_DIAMETER) * (-1 * angle / 360);
+
+        if (angle > 0) {
+            tankDrive(-0.5, 0.5);
+        }
+        else {
+            tankDrive(0.5, -0.5);
+        }
+
+        while(Math.abs(rotations * TICKS_PER_ROTATION - leftDriveMotor.getCurrentPosition()) > ACCEPTABLE_THRESHOLD);
+
+        stop();
     }
 }
