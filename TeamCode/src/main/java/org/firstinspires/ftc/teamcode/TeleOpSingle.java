@@ -58,7 +58,7 @@ public class TeleOpSingle extends OpMode {
             chooChoo.resetEncoder();
         }
         else {
-            chooChoo.stop();
+            chooChoo.holdPosition();
         }
     }
 
