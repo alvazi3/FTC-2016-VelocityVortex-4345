@@ -32,12 +32,12 @@ public class TeleOpSingle extends OpMode {
 
     @Override
     public void loop() {
-        drivetrain.arcadeDrive(gamepad1.left_stick_y, gamepad1.left_stick_x);
+        drivetrain.arcadeDrive(gamepad1.left_stick_y, gamepad1.right_stick_x);
 
         intakeControls();
         catapultControls();
         telemetry.addData("Catapult Position", chooChoo.getPosition());
-        telemetry.addData("Drive Position", drivetrain.getCurrentPosition());
+        telemetry.addData("Drive Position", drivetrain.getPosition());
     }
 
     public void stop() {
