@@ -37,12 +37,12 @@ public class ChooChoo {
         chooChooMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    public void catapultBall(double rotations) {
+    public void catapultBall(double rotations, double power) {
         isHolding = false;
         resetEncoder();
 
         while(chooChooMotor.getCurrentPosition() < TICKS_PER_ROTATION * rotations) {
-            chooChooMotor.setPower(0.75);
+            chooChooMotor.setPower(power);
         }
 
         holdPosition();

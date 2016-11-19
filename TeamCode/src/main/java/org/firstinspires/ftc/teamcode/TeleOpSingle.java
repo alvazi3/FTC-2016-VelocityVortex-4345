@@ -52,7 +52,7 @@ public class TeleOpSingle extends OpMode {
 
         }
         else if (gamepad1.y) {
-            chooChoo.catapultBall(1);
+            chooChoo.catapultBall(1, 1);
             while (gamepad1.y);
         }
         else if (gamepad1.right_bumper) {
