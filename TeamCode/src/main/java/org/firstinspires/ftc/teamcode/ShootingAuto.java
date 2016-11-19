@@ -17,29 +17,31 @@ public class ShootingAuto extends LinearOpMode {
     private Drivetrain drivetrain;
     private Intake intake;
 
-    private void initialize() {
+    public void initialize() {
         drivetrain = new Drivetrain(hardwareMap.dcMotor.get("left_drive"), hardwareMap.dcMotor.get("right_drive"));
         drivetrain.stop();
+        drivetrain.resetEncoder();
 
         intake = new Intake(hardwareMap.dcMotor.get("intake"));
         intake.stop();
 
         chooChoo = new ChooChoo(hardwareMap.dcMotor.get("catapult"));
         chooChoo.stop();
+        chooChoo.resetEncoder();
     }
 
     @Override
-    public void runOpMode() {
+    public void runOpMode() throws InterruptedException {
         initialize();
 
-        for(int i = 0; i < 16; i++) {   //Multiple tries often needed
-            chooChoo.catapultBall(1);
+        waitForStart();
 
-            try {
-                sleep(2000);
-            } catch (InterruptedException e) {
+        drivetrain.driveTo(12);
 
-            }
+        for(int i = 0; i < 4; i++) {   //Multiple tries often needed
+            chooChoo.catapultBall(1, 0.25);
+
+            sleep(2000);
         }
     }
 }

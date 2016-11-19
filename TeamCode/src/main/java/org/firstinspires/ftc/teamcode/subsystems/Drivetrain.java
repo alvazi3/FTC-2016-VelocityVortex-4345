@@ -51,9 +51,9 @@ public class Drivetrain {
     public void driveTo(double position) {
         double rotations = position / (WHEEL_DIAMETER * Math.PI);
 
-        arcadeDrive(0.75, 0);
+        arcadeDrive(-0.25, 0);
 
-        while(Math.abs(rotations * TICKS_PER_ROTATION - leftDriveMotor.getCurrentPosition()) > ACCEPTABLE_THRESHOLD);
+        while(rotations * TICKS_PER_ROTATION - Math.abs(leftDriveMotor.getCurrentPosition()) > ACCEPTABLE_THRESHOLD);
 
         stop();
     }
