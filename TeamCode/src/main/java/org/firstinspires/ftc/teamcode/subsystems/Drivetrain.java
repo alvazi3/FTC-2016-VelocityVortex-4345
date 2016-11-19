@@ -44,7 +44,7 @@ public class Drivetrain {
         leftDriveMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    public int getCurrentPosition() {
+    public int getPosition() {
         return leftDriveMotor.getCurrentPosition();
     }
 

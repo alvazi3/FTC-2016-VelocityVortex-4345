@@ -37,6 +37,7 @@ public class TeleOpSingle extends OpMode {
         intakeControls();
         catapultControls();
         telemetry.addData("Catapult Position", chooChoo.getPosition());
+        telemetry.addData("Drive Position", drivetrain.getPosition());
     }
 
     public void stop() {
