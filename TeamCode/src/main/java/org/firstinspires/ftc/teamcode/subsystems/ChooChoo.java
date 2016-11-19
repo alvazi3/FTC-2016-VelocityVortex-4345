@@ -11,15 +11,19 @@ public class ChooChoo {
     private static final double TICKS_PER_ROTATION = 1000;
 
     private DcMotor chooChooMotor;
+    private boolean isHolding;
 
     public ChooChoo(DcMotor chooChooMotor) {
         this.chooChooMotor = chooChooMotor;
         this.chooChooMotor.setDirection(DcMotor.Direction.FORWARD);
 
+        isHolding = false;
         resetEncoder();
     }
 
     public void rotate() {
+        isHolding = false;
+        chooChooMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         chooChooMotor.setPower(0.5);
     }
 
@@ -28,21 +32,35 @@ public class ChooChoo {
     }
 
     public void resetEncoder() {
+        isHolding = false;
         chooChooMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         chooChooMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     public void catapultBall(double rotations) {
+        isHolding = false;
         resetEncoder();
 
         while(chooChooMotor.getCurrentPosition() < TICKS_PER_ROTATION * rotations) {
             chooChooMotor.setPower(0.75);
         }
 
-        chooChooMotor.setPower(0);
+        holdPosition();
+    }
+
+    public void holdPosition() {
+        isHolding = true;
+        chooChooMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        chooChooMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        chooChooMotor.setTargetPosition(0);
     }
 
     public int getPosition() {
         return chooChooMotor.getCurrentPosition();
+    }
+
+    public boolean isHolding() {
+        return isHolding;
     }
 }

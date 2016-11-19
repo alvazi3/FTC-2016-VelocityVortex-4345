@@ -32,7 +32,7 @@ public class TeleOpSingle extends OpMode {
 
     @Override
     public void loop() {
-        drivetrain.arcadeDrive(gamepad1.left_stick_y, gamepad1.left_stick_x);
+        drivetrain.arcadeDrive(gamepad1.left_stick_y, gamepad1.right_stick_x);
 
         intakeControls();
         catapultControls();
@@ -49,17 +49,25 @@ public class TeleOpSingle extends OpMode {
         if (gamepad1.x) {
             chooChoo.rotate();
             while(gamepad1.x);
+
         }
         else if (gamepad1.y) {
             chooChoo.catapultBall(1);
             while (gamepad1.y);
         }
+        else if (gamepad1.right_bumper) {
+            chooChoo.holdPosition();
+            while (gamepad1.right_bumper);
+        }
         else if (gamepad1.back) {
             chooChoo.resetEncoder();
         }
         else {
-            chooChoo.stop();
+            if (!chooChoo.isHolding()) {
+                chooChoo.holdPosition();
+            }
         }
+
     }
 
     private void intakeControls() {
