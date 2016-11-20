@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.subsystems.ChooChoo;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
@@ -36,12 +37,14 @@ public class ShootingAuto extends LinearOpMode {
 
         waitForStart();
 
-        drivetrain.driveTo(12);
+        chooChoo.catapultBall(1.05, .25);
 
-        for(int i = 0; i < 4; i++) {   //Multiple tries often needed
-            chooChoo.catapultBall(1, 0.25);
+        intake.rotate(1);
 
-            sleep(2000);
-        }
+        ElapsedTime timer = new ElapsedTime();
+        timer.reset();
+        while(timer.seconds() < 2);
+
+        chooChoo.catapultBall(1.05, .25);
     }
 }
