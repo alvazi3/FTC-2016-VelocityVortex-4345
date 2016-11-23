@@ -39,18 +39,18 @@ public class ShootingAndDriveAuto extends LinearOpMode {
 
         ElapsedTime timer = new ElapsedTime();
         timer.reset();
-        while(timer.seconds() < 2 || !opModeIsActive());
+        while(timer.seconds() < 2 && opModeIsActive());
 
         chooChoo.catapultBall(1.05, .25);
 
         timer.reset();
-        while(timer.seconds() < 2 || !opModeIsActive());
+        while(timer.seconds() < 2 && opModeIsActive());
 
         intake.rotate(0.25);
         drivetrain.tankDrive(-1, -0.9);
 
         timer.reset();
-        while (timer.seconds() < 3 || !opModeIsActive());
+        while (timer.seconds() < 3 && opModeIsActive());
 
         drivetrain.stop();
     }
