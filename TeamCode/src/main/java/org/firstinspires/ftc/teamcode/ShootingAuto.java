@@ -8,9 +8,6 @@ import org.firstinspires.ftc.teamcode.subsystems.ChooChoo;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 
-/**
- * Created by mpols on 11/19/2016.
- */
 @Autonomous(name="Unnamed4345: Shooting Auto", group="unnamed4345")
 public class ShootingAuto extends LinearOpMode {
 

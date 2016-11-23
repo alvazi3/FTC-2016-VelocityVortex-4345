@@ -4,9 +4,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-/**
- * Created by mpols on 11/19/2016.
- */
 @Autonomous(name="Unnamed4345: Shooting/Drive Auto", group="unnamed4345")
 public class ShootingAndDriveAuto extends LinearOpMode {
 
