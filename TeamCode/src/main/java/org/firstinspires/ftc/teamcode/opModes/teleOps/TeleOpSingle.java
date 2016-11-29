@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.opModes.teleOps;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -7,27 +7,23 @@ import org.firstinspires.ftc.teamcode.subsystems.*;
 
 @TeleOp(name="Unnamed4345: TeleOp Single", group="unnamed4345")
 public class TeleOpSingle extends OpMode {
-    private ChooChoo chooChoo;
+
+    private Catapult catapult;
     private Drivetrain drivetrain;
     private Intake intake;
     
     @Override
     public void init() {
         drivetrain = new Drivetrain(hardwareMap.dcMotor.get("left_drive"), hardwareMap.dcMotor.get("right_drive"));
-        drivetrain.stop();
-
         intake = new Intake(hardwareMap.dcMotor.get("intake"));
-        intake.stop();
-
-        chooChoo = new ChooChoo(hardwareMap.dcMotor.get("catapult"));
-        chooChoo.stop();
+        catapult = new Catapult(hardwareMap.dcMotor.get("catapult"));
     }
 
     @Override
     public void start() {
         drivetrain.stop();
         intake.stop();
-        chooChoo.stop();
+        catapult.stop();
     }
 
     @Override
@@ -36,36 +32,36 @@ public class TeleOpSingle extends OpMode {
 
         intakeControls();
         catapultControls();
-        telemetry.addData("Catapult Position", chooChoo.getPosition());
+        telemetry.addData("Catapult Position", catapult.getPosition());
         telemetry.addData("Drive Position", drivetrain.getPosition());
     }
 
     public void stop() {
         drivetrain.stop();
         intake.stop();
-        chooChoo.stop();
+        catapult.stop();
     }
 
     private void catapultControls() {
         if (gamepad1.x) {
-            chooChoo.rotate();
+            catapult.rotate();
             while(gamepad1.x);
 
         }
         else if (gamepad1.y) {
-            chooChoo.catapultBall(1, 1);
+            catapult.catapultBall(1, 1);
             while (gamepad1.y);
         }
         else if (gamepad1.right_bumper) {
-            chooChoo.holdPosition();
+            catapult.holdPosition();
             while (gamepad1.right_bumper);
         }
         else if (gamepad1.back) {
-            chooChoo.resetEncoder();
+            catapult.resetEncoder();
         }
         else {
-            if (!chooChoo.isHolding()) {
-                chooChoo.holdPosition();
+            if (!catapult.isHolding()) {
+                catapult.holdPosition();
             }
         }
 

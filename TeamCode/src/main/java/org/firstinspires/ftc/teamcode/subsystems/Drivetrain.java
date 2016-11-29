@@ -21,6 +21,9 @@ public class Drivetrain {
 
         leftDriveMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightDriveMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        resetEncoder();
+        stop();
     }
 
     public void tankDrive(double leftPower, double rightPower) {

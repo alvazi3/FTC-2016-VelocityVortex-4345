@@ -15,9 +15,11 @@ public class Intake {
     public Intake(DcMotor intakeMotor) {
         this.intakeMotor = intakeMotor;
 
-        this.intakeMotor.setDirection(DcMotor.Direction.FORWARD);
+        intakeMotor.setDirection(DcMotor.Direction.FORWARD);
 
         intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        stop();
     }
 
     public void rollIn() {

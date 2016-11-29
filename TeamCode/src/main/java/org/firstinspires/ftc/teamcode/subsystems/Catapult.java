@@ -6,19 +6,20 @@ import com.qualcomm.robotcore.util.Range;
 
 import static java.lang.Thread.sleep;
 
-public class ChooChoo {
+public class Catapult {
 
     private static final double TICKS_PER_ROTATION = 1000;
 
     private DcMotor chooChooMotor;
     private boolean isHolding;
 
-    public ChooChoo(DcMotor chooChooMotor) {
+    public Catapult(DcMotor chooChooMotor) {
         this.chooChooMotor = chooChooMotor;
         this.chooChooMotor.setDirection(DcMotor.Direction.FORWARD);
 
         isHolding = false;
         resetEncoder();
+        stop();
     }
 
     public void rotate() {
