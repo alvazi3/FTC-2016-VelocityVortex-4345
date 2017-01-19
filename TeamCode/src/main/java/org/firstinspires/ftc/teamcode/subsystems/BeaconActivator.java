@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.subsystems;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DeviceInterfaceModule;
 import com.qualcomm.robotcore.hardware.LED;
-import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 /*
  * IMPORTANT TO REMEMBER FOR COLOR SENSOR:
@@ -20,11 +20,11 @@ public class BeaconActivator {
     private ColorSensor rgbSensor;
     private LED onboardLed;
     private DeviceInterfaceModule cdim;
-    private Servo buttonPusher;
+    private DcMotor buttonPusher;
 
     private boolean isLedLit;
 
-    public BeaconActivator(ColorSensor rgbSensor, DeviceInterfaceModule cdim, LED onboardLed, Servo buttonPusher) {
+    public BeaconActivator(ColorSensor rgbSensor, DeviceInterfaceModule cdim, LED onboardLed, DcMotor buttonPusher) {
         this.cdim = cdim;
         this.rgbSensor = rgbSensor;
         this.onboardLed = onboardLed;
@@ -34,9 +34,10 @@ public class BeaconActivator {
 
         onboardLed.enable(false);
 
-        buttonPusher.scaleRange(SERVO_LEFT_POSITION, SERVO_RIGHT_POSITION);
+        //buttonPusher.scaleRange(SERVO_LEFT_POSITION, SERVO_RIGHT_POSITION);
     }
 
+    /*
     public void activateButton(boolean isTeamRed) {
         if(isTeamRed) {
             if (isRed()) {
@@ -55,13 +56,25 @@ public class BeaconActivator {
     }
 
     public void setLeft(){
-        buttonPusher.setPosition(0);
+        buttonPusher.setPosition(1);
     }
     public void setRight(){
         buttonPusher.setPosition(1);
     }
     public void setCenter(){
         buttonPusher.setPosition(0.5);
+    }
+
+    */
+
+    public void push() {
+	    buttonPusher.setPower(.5);
+    }
+    public void pull() {
+        buttonPusher.setPower(-.5);
+    }
+    public void stop() {
+        buttonPusher.setPower(0);
     }
 
     public boolean isRed() {

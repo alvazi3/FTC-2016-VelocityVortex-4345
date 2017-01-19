@@ -11,12 +11,17 @@ public class TeleOpSingle extends OpMode {
     private Catapult catapult;
     private Drivetrain drivetrain;
     private Intake intake;
+    private BeaconActivator beaconActivator;
     
     @Override
     public void init() {
         drivetrain = new Drivetrain(hardwareMap.dcMotor.get("left_drive"), hardwareMap.dcMotor.get("right_drive"));
         intake = new Intake(hardwareMap.dcMotor.get("intake"));
         catapult = new Catapult(hardwareMap.dcMotor.get("catapult"));
+        beaconActivator = new BeaconActivator(hardwareMap.colorSensor.get("sensor"),
+                hardwareMap.deviceInterfaceModule.get("dim"),
+                hardwareMap.led.get("led"),
+                hardwareMap.dcMotor.get("button_pusher"));
     }
 
     @Override
@@ -24,6 +29,7 @@ public class TeleOpSingle extends OpMode {
         drivetrain.stop();
         intake.stop();
         catapult.stop();
+        beaconActivator.stop();
     }
 
     @Override
@@ -32,6 +38,7 @@ public class TeleOpSingle extends OpMode {
 
         intakeControls();
         catapultControls();
+        beaconActivatorControls();
         telemetry.addData("Catapult Position", catapult.getPosition());
         telemetry.addData("Drive Position", drivetrain.getPosition());
     }
@@ -87,6 +94,18 @@ public class TeleOpSingle extends OpMode {
 
         else {
             intake.stop();
+        }
+    }
+
+    private void beaconActivatorControls() {
+        if (gamepad1.left_bumper) {
+            beaconActivator.push();
+        }
+        else if (gamepad1.left_trigger > 0.1) {
+            beaconActivator.pull();
+        }
+        else {
+            beaconActivator.stop();
         }
     }
 }
