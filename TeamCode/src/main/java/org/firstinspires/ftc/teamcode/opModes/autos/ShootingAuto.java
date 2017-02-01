@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Catapult;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 
-@Autonomous(name="Unnamed4345: Shooting Auto", group="unnamed4345")
+@Autonomous(name="legend27: Shooting Auto", group="legend27")
 public class ShootingAuto extends LinearOpMode {
 
     private ElapsedTime timer;

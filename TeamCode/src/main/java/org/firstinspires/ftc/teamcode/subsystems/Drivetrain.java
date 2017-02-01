@@ -20,7 +20,7 @@ public class Drivetrain {
         this.rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
 
         leftDriveMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightDriveMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightDriveMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         resetEncoder();
         stop();
@@ -44,35 +44,40 @@ public class Drivetrain {
 
     public void resetEncoder() {
         leftDriveMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightDriveMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftDriveMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightDriveMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    public int getPosition() {
-        return leftDriveMotor.getCurrentPosition();
+    public int[] getPosition() {
+        return new int[] {
+                leftDriveMotor.getCurrentPosition(),
+                rightDriveMotor.getCurrentPosition()
+        };
     }
 
     public void driveTo(double position) {
-        double rotations = position / (WHEEL_DIAMETER * Math.PI);
+	double rotations = position / (WHEEL_DIAMETER * Math.PI);
 
-        arcadeDrive(-0.25, 0);
+	arcadeDrive(-0.25, 0);
 
-        while(rotations * TICKS_PER_ROTATION - Math.abs(leftDriveMotor.getCurrentPosition()) > ACCEPTABLE_THRESHOLD);
+	while(rotations * TICKS_PER_ROTATION - Math.abs(leftDriveMotor.getCurrentPosition()) > ACCEPTABLE_THRESHOLD);
 
-        stop();
+	stop();
     }
 
     public void turnTo(double angle) {
-        double rotations = (BOT_DIAMETER / WHEEL_DIAMETER) * (-1 * angle / 360);
+	double rotations = (BOT_DIAMETER / WHEEL_DIAMETER) * (-1 * angle / 360);
 
-        if (angle > 0) {
-            tankDrive(-0.5, 0.5);
-        }
-        else {
-            tankDrive(0.5, -0.5);
-        }
+	if (angle > 0) {
+	    tankDrive(-0.5, 0.5);
+	}
+	else {
+	    tankDrive(0.5, -0.5);
+	}
 
-        while(Math.abs(rotations * TICKS_PER_ROTATION - leftDriveMotor.getCurrentPosition()) > ACCEPTABLE_THRESHOLD);
+	while(Math.abs(rotations * TICKS_PER_ROTATION - leftDriveMotor.getCurrentPosition()) > ACCEPTABLE_THRESHOLD);
 
-        stop();
+	stop();
     }
 }

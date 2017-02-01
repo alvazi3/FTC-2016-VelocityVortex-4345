@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.subsystems.*;
 
-@TeleOp(name="Unnamed4345: TeleOp Single", group="unnamed4345")
+@TeleOp(name="legend27: TeleOp Single", group="legend27")
 public class TeleOpSingle extends OpMode {
 
     private Catapult catapult;
@@ -18,10 +18,7 @@ public class TeleOpSingle extends OpMode {
         drivetrain = new Drivetrain(hardwareMap.dcMotor.get("left_drive"), hardwareMap.dcMotor.get("right_drive"));
         intake = new Intake(hardwareMap.dcMotor.get("intake"));
         catapult = new Catapult(hardwareMap.dcMotor.get("catapult"));
-        beaconActivator = new BeaconActivator(hardwareMap.colorSensor.get("sensor"),
-                hardwareMap.deviceInterfaceModule.get("dim"),
-                hardwareMap.led.get("led"),
-                hardwareMap.dcMotor.get("button_pusher"));
+        beaconActivator = new BeaconActivator(hardwareMap.colorSensor.get("sensor"), hardwareMap.deviceInterfaceModule.get("dim"), hardwareMap.led.get("led"), hardwareMap.dcMotor.get("button_pusher"));
     }
 
     @Override
@@ -34,13 +31,16 @@ public class TeleOpSingle extends OpMode {
 
     @Override
     public void loop() {
-        drivetrain.arcadeDrive(gamepad1.left_stick_y, gamepad1.right_stick_x);
+        drivetrain.arcadeDrive(-1 * gamepad1.left_stick_y, gamepad1.right_stick_x);
 
         intakeControls();
         catapultControls();
         beaconActivatorControls();
         telemetry.addData("Catapult Position", catapult.getPosition());
         telemetry.addData("Drive Position", drivetrain.getPosition());
+        telemetry.addData("Red", beaconActivator.getRawColors()[1]);
+        telemetry.addData("Green", beaconActivator.getRawColors()[2]);
+        telemetry.addData("Blue", beaconActivator.getRawColors()[3]);
     }
 
     public void stop() {
@@ -103,6 +103,9 @@ public class TeleOpSingle extends OpMode {
         }
         else if (gamepad1.left_trigger > 0.1) {
             beaconActivator.pull();
+        }
+        else if (gamepad1.dpad_up) {
+            beaconActivator.pushButton();
         }
         else {
             beaconActivator.stop();
