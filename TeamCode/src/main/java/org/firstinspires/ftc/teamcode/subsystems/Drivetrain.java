@@ -59,25 +59,22 @@ public class Drivetrain {
     public void driveTo(double position) {
 	double rotations = position / (WHEEL_DIAMETER * Math.PI);
 
-	arcadeDrive(-0.25, 0);
+	leftDriveMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+	rightDriveMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-	while(rotations * TICKS_PER_ROTATION - Math.abs(leftDriveMotor.getCurrentPosition()) > ACCEPTABLE_THRESHOLD);
+	leftDriveMotor.setPosition(rotations * TICKS_PER_ROTATION);
+	rightDriveMotor.setPosition(-1 * rotations * TICKS_PER_ROTATION);
 
-	stop();
+	
     }
 
     public void turnTo(double angle) {
 	double rotations = (BOT_DIAMETER / WHEEL_DIAMETER) * (-1 * angle / 360);
 
-	if (angle > 0) {
-	    tankDrive(-0.5, 0.5);
-	}
-	else {
-	    tankDrive(0.5, -0.5);
-	}
+	leftDriveMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+	rightDriveMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-	while(Math.abs(rotations * TICKS_PER_ROTATION - leftDriveMotor.getCurrentPosition()) > ACCEPTABLE_THRESHOLD);
-
-	stop();
+	leftDriveMotor.setPosition(rotations * TICKS_PER_ROTATION);
+	rightDriveMotor.setPosition(-1 * rotations * TICKS_PER_ROTATION);
     }
 }
