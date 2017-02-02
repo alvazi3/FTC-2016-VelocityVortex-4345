@@ -57,24 +57,22 @@ public class Drivetrain {
     }
 
     public void driveTo(double position) {
-	double rotations = position / (WHEEL_DIAMETER * Math.PI);
+        double rotations = position / (WHEEL_DIAMETER * Math.PI);
 
-	leftDriveMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-	rightDriveMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        leftDriveMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightDriveMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-	leftDriveMotor.setPosition(rotations * TICKS_PER_ROTATION);
-	rightDriveMotor.setPosition(-1 * rotations * TICKS_PER_ROTATION);
-
-	
+        leftDriveMotor.setTargetPosition((int)(rotations * TICKS_PER_ROTATION));
+        rightDriveMotor.setTargetPosition((int)(-1 * rotations * TICKS_PER_ROTATION));
     }
 
     public void turnTo(double angle) {
-	double rotations = (BOT_DIAMETER / WHEEL_DIAMETER) * (-1 * angle / 360);
+        double rotations = (BOT_DIAMETER / WHEEL_DIAMETER) * (-1 * angle / 360);
 
-	leftDriveMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-	rightDriveMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        leftDriveMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightDriveMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-	leftDriveMotor.setPosition(rotations * TICKS_PER_ROTATION);
-	rightDriveMotor.setPosition(-1 * rotations * TICKS_PER_ROTATION);
+        leftDriveMotor.setTargetPosition((int)(rotations * TICKS_PER_ROTATION));
+        rightDriveMotor.setTargetPosition((int)(-1 * rotations * TICKS_PER_ROTATION));
     }
 }

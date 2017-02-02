@@ -35,23 +35,23 @@ public class BeaconRed extends LinearOpMode {
         drivetrain.tankDrive(1, 1);
         telemetry.addData("Status", "Driving forward0");
         timer.reset();
-        while (timer.seconds() < 0.4 && opModeIsActive());
+        while (timer.seconds() < 1 && opModeIsActive());
 
         if(teamRed) {
-            drivetrain.tankDrive(0.25, -0.25);
+            drivetrain.tankDrive(0.125, -0.125);
         }
         else {
-            drivetrain.tankDrive(-0.25, 0.25);
+            drivetrain.tankDrive(-0.125, 0.125);
         }
         telemetry.addData("Status", "Turning");
 
         timer.reset();
-        while (timer.seconds() < 3 && opModeIsActive());
+        while (timer.seconds() < 2.45 && opModeIsActive());
 
-        drivetrain.tankDrive(1, 1);
+        drivetrain.tankDrive(.2, .2);
         telemetry.addData("Status", "Driving forward1 ");
         timer.reset();
-        while (timer.seconds() < 0.5 && opModeIsActive());
+        while (timer.seconds() < 3 && opModeIsActive());
 
         drivetrain.stop();
 
