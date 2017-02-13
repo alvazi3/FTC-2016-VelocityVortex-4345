@@ -9,10 +9,10 @@ import org.firstinspires.ftc.teamcode.subsystems.Catapult;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 
-@Autonomous(name="legend27: Beacon Red", group="legend27")
+@Autonomous(name="legend27: Beacon Blue", group="legend27")
 public class BeaconBlue extends LinearOpMode {
 
-    private boolean teamRed = true;
+    private boolean teamRed = false;
 
     private ElapsedTime timer;
 
@@ -38,10 +38,10 @@ public class BeaconBlue extends LinearOpMode {
         while (timer.seconds() < 1 && opModeIsActive());
 
         if(teamRed) {
-            drivetrain.tankDrive(0.125, -0.125);
+            drivetrain.tankDrive(-0.125, 0.125);
         }
         else {
-            drivetrain.tankDrive(-0.125, 0.125);
+            drivetrain.tankDrive(0.125, -0.125);
         }
         telemetry.addData("Status", "Turning");
 

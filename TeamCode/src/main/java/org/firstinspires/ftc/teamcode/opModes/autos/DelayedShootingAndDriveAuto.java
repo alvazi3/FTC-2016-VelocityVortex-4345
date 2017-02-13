@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Catapult;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 
-@Autonomous(name="legend27: Shooting/Drive Auto", group="legend27")
+@Autonomous(name="legend27: Delayed Shooting/Drive Auto", group="legend27")
 public class DelayedShootingAndDriveAuto extends LinearOpMode {
 
     private ElapsedTime timer;
@@ -35,7 +35,10 @@ public class DelayedShootingAndDriveAuto extends LinearOpMode {
         catapult.catapultBall(1.05, .25);
 
         timer.reset();
-        while(timer.seconds() < 2 && opModeIsActive());
+        while(timer.seconds() < 10 && opModeIsActive()) {
+            telemetry.addData("Waiting for:", 10 - timer.seconds());
+            telemetry.update();
+        };
 
         drivetrain.tankDrive(1, 1);
 
