@@ -29,8 +29,6 @@ public class ShootingAuto extends LinearOpMode {
 
         catapult.catapultBall(1.05, .25);
 
-        intake.rotate(1);
-
         timer.reset();
         while(timer.seconds() < 2);
 

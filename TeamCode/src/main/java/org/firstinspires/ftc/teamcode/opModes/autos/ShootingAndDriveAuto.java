@@ -26,9 +26,7 @@ public class ShootingAndDriveAuto extends LinearOpMode {
         intake = new Intake(hardwareMap.dcMotor.get("intake"));
         catapult = new Catapult(hardwareMap.dcMotor.get("catapult"));
 
-
         waitForStart();
-
 
         catapult.catapultBall(1.05, .25);
 
@@ -43,7 +41,7 @@ public class ShootingAndDriveAuto extends LinearOpMode {
         drivetrain.tankDrive(1, 1);
 
         timer.reset();
-        while (timer.seconds() < 2 && opModeIsActive());
+        while (timer.seconds() < 2 && opModeIsActive()) ;
 
         drivetrain.stop();
     }

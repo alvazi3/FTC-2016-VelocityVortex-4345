@@ -37,7 +37,7 @@ public class TeleOpSingle extends OpMode {
         catapultControls();
         beaconActivatorControls();
         telemetry.addData("Catapult Position", catapult.getPosition());
-        telemetry.addData("Drive Position", drivetrain.getPosition());
+        telemetry.addData("Drive Position", drivetrain.getPosition()[0] + ", " + drivetrain.getPosition()[1]);
         telemetry.addData("Red", beaconActivator.getRawColors()[1]);
         telemetry.addData("Green", beaconActivator.getRawColors()[2]);
         telemetry.addData("Blue", beaconActivator.getRawColors()[3]);
@@ -110,5 +110,6 @@ public class TeleOpSingle extends OpMode {
         else {
             beaconActivator.stop();
         }
+
     }
 }
