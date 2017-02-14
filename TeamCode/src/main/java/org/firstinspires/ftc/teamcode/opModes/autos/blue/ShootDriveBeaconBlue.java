@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opModes.autos;
+package org.firstinspires.ftc.teamcode.opModes.autos.blue;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -9,10 +9,10 @@ import org.firstinspires.ftc.teamcode.subsystems.Catapult;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 
-@Autonomous(name="legend27: SDB Red", group="legend27")
-public class ShootDriveBeaconRed extends LinearOpMode {
+@Autonomous(name="legend27: SDB Blue", group="legend27")
+public class ShootDriveBeaconBlue extends LinearOpMode {
 
-    private boolean teamRed = true;
+    private boolean teamRed = false;
 
     private ElapsedTime timer;
 
@@ -31,6 +31,25 @@ public class ShootDriveBeaconRed extends LinearOpMode {
         beaconActivator = new BeaconActivator(hardwareMap.colorSensor.get("sensor"), hardwareMap.deviceInterfaceModule.get("dim"), hardwareMap.led.get("led"), hardwareMap.dcMotor.get("button_pusher"));
 
         waitForStart();
+
+        drivetrain.tankDrive(1, 1);
+        telemetry.addData("Status", "Driving forward0");
+        timer.reset();
+        while (timer.seconds() < .1 && opModeIsActive());
+        drivetrain.stop();
+
+        if(!teamRed) {
+            drivetrain.tankDrive(-0.125, 0.125);
+        }
+        else {
+            drivetrain.tankDrive(0.125, -0.125);
+        }
+
+        telemetry.addData("Status", "Turning");
+
+        timer.reset();
+        while (timer.seconds() < 0.57 && opModeIsActive());
+        drivetrain.stop();
 
         catapult.catapultBall(1.05, .25);
 
@@ -51,9 +70,9 @@ public class ShootDriveBeaconRed extends LinearOpMode {
         while (timer.seconds() < 0.47 && opModeIsActive());
 
         drivetrain.tankDrive(1, 1);
-        telemetry.addData("Status", "Driving forward");
+        telemetry.addData("Status", "Driving forward0");
         timer.reset();
-        while (timer.seconds() < 1.3 && opModeIsActive());
+        while (timer.seconds() < 1 && opModeIsActive());
 
         if(teamRed) {
             drivetrain.tankDrive(-0.125, 0.125);
@@ -64,7 +83,7 @@ public class ShootDriveBeaconRed extends LinearOpMode {
         telemetry.addData("Status", "Turning");
 
         timer.reset();
-        while (timer.seconds() < 2.55 && opModeIsActive());
+        while (timer.seconds() < 2.35 && opModeIsActive());
 
         drivetrain.tankDrive(.2, .2);
         telemetry.addData("Status", "Driving forward1 ");
