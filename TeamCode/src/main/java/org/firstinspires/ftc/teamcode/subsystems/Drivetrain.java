@@ -97,21 +97,21 @@ public class Drivetrain {
         stop();
     }
 
-    public void turnToP(double position) {
+    public void turnToP(double angle) {
         double rotations = angle / 180 * Math.PI;
-	double power = 1;
-	double error = rotations * TICKS_PER_ROTATION;
+        double power = 1;
+        double error = rotations * TICKS_PER_ROTATION;
 
-	resetEncoder();
+        resetEncoder();
 
-	while(Math.abs(leftDriveMotor.getCurrentPosition()) < rotations * TICKS_PER_ROTATION) {
-	    error = rotations * TICKS_PER_ROTATION - leftDriveMotor.getCurrentPosition();
+        while(Math.abs(leftDriveMotor.getCurrentPosition()) < rotations * TICKS_PER_ROTATION) {
+            error = rotations * TICKS_PER_ROTATION - leftDriveMotor.getCurrentPosition();
 
-	    power = Range.clip(error[0] * kP, -1, 1);
-	    
-	    tankDrive(power, 0);
-	}
+            power = Range.clip(error * kP, -1, 1);
 
-	stop();
+            tankDrive(power, 0);
+        }
+
+        stop();
     }
 }
