@@ -8,7 +8,7 @@ public class Drivetrain {
     private final int TICKS_PER_ROTATION = 1000;
     private final int WHEEL_DIAMETER = 4;   //Inches
     private final int BOT_DIAMETER = 15;    //Inches
-    private final double kP = 1;
+    private final double kP = 10.00436;
 
     private DcMotor leftDriveMotor, rightDriveMotor;
 
@@ -98,7 +98,7 @@ public class Drivetrain {
     }
 
     public void turnToP(double angle) {
-        double rotations = angle / 180 * Math.PI;
+        double rotations = angle / 180 * 3.9;
         double power = 1;
         double error = rotations * TICKS_PER_ROTATION;
 
