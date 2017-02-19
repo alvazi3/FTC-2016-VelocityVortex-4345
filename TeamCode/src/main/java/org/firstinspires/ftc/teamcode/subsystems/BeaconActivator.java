@@ -21,50 +21,17 @@ public class BeaconActivator {
     private ColorSensor rgbSensor;
     private LED onboardLed;
     private DeviceInterfaceModule cdim;
-    private DcMotor buttonPusher;
 
     private boolean isLedLit;
 
-    public BeaconActivator(ColorSensor rgbSensor, DeviceInterfaceModule cdim, LED onboardLed, DcMotor buttonPusher) {
+    public BeaconActivator(ColorSensor rgbSensor, DeviceInterfaceModule cdim, LED onboardLed) {
         this.cdim = cdim;
         this.rgbSensor = rgbSensor;
         this.onboardLed = onboardLed;
-        this.buttonPusher = buttonPusher;
 
         isLedLit = false;
 
         onboardLed.enable(false);
-    }
-
-    public void push() {
-	buttonPusher.setPower(.5);
-    }
-    public void pull() {
-        buttonPusher.setPower(-.5);
-    }
-    public void stop() {
-        buttonPusher.setPower(0);
-    }
-    public void pullIn() {
-        ElapsedTime timer = new ElapsedTime();
-        timer.reset();
-        pull();
-        while (timer.seconds() < TIME_TO_EXTEND);
-        stop();
-    }
-    public void pushOut() {
-        ElapsedTime timer = new ElapsedTime();
-        timer.reset();
-        push();
-        while (timer.seconds() < TIME_TO_EXTEND);
-        stop();
-    }
-    public void pushButton() {
-        pushOut();
-        ElapsedTime timer = new ElapsedTime();
-        timer.reset();
-        while (timer.seconds() < 0.25);
-        pullIn();
     }
 
     public boolean isRed() {
@@ -93,15 +60,5 @@ public class BeaconActivator {
             rgbSensor.green() * 255 / 800,
             rgbSensor.blue() * 255 / 800
         };
-    }
-
-    public void doBeacon(boolean onTeamRed) {
-	    pushButton();
-	    if(isRed() != onTeamRed) {
-	        ElapsedTime timer = new ElapsedTime();
-            timer.reset();
-	        while (timer.seconds() < 8);
-	        pushButton();
-        }
     }
 }

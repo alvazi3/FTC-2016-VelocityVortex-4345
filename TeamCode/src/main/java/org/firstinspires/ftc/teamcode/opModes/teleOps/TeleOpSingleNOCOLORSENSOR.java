@@ -13,8 +13,7 @@ public class TeleOpSingleNOCOLORSENSOR extends OpMode {
     private Catapult catapult;
     private Drivetrain drivetrain;
     private Intake intake;
-    //private BeaconActivator beaconActivator;
-    
+
     @Override
     public void init() {
         drivetrain = new Drivetrain(hardwareMap.dcMotor.get("left_drive"), hardwareMap.dcMotor.get("right_drive"));

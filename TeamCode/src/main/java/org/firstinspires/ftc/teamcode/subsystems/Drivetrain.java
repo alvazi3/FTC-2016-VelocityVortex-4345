@@ -68,22 +68,22 @@ public class Drivetrain {
 
     public void driveToP(double position) {
         double rotations = position / (WHEEL_DIAMETER * Math.PI);
-	double[] power = {1, 1};
-	double[] error = {rotations * TICKS_PER_ROTATION, rotations * TICKS_PER_ROTATION};
+        double[] power = {1, 1};
+        double[] error = {rotations * TICKS_PER_ROTATION, rotations * TICKS_PER_ROTATION};
 
-	resetEncoder();
+        resetEncoder();
 
-	while(Math.abs(leftDriveMotor.getCurrentPosition()) < rotations * TICKS_PER_ROTATION && Math.abs(rightDriveMotor.getCurrentPosition()) < rotations * TICKS_PER_ROTATION) {
-	    error[0] = rotations * TICKS_PER_ROTATION - leftDriveMotor.getCurrentPosition();
-	    error[1] = rotations * TICKS_PER_ROTATION - rightDriveMotor.getCurrentPosition();
+        while(Math.abs(leftDriveMotor.getCurrentPosition()) < Math.abs(rotations * TICKS_PER_ROTATION) && Math.abs(rightDriveMotor.getCurrentPosition()) < Math.abs(rotations * TICKS_PER_ROTATION)) {
+            error[0] = rotations * TICKS_PER_ROTATION - leftDriveMotor.getCurrentPosition();
+            error[1] = rotations * TICKS_PER_ROTATION - rightDriveMotor.getCurrentPosition();
 
-	    power[0] = Range.clip(error[0] * kP, -1, 1);
-	    power[1] = Range.clip(error[1] * kP, -1, 1);
-	    
-	    tankDrive(power[0], power[1]);
-	}
+            power[0] = Range.clip(error[0] * kP, -1, 1);
+            power[1] = Range.clip(error[1] * kP, -1, 1);
 
-	stop();
+            tankDrive(power[0], power[1]);
+        }
+
+        stop();
     }
 
     public void turnTo(double angle) {
@@ -98,13 +98,14 @@ public class Drivetrain {
     }
 
     public void turnToP(double angle) {
+        resetEncoder();
         double rotations = angle / 180 * 3.9;
         double power = 1;
         double error = rotations * TICKS_PER_ROTATION;
 
         resetEncoder();
 
-        while(Math.abs(leftDriveMotor.getCurrentPosition()) < rotations * TICKS_PER_ROTATION) {
+        while(Math.abs(leftDriveMotor.getCurrentPosition()) < Math.abs(rotations * TICKS_PER_ROTATION)) {
             error = rotations * TICKS_PER_ROTATION - leftDriveMotor.getCurrentPosition();
 
             power = Range.clip(error * kP, -1, 1);
