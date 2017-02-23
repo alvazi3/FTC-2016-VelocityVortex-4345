@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Catapult;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 
-@Autonomous(name="ENCODED: Shoot/Beacon Auto", group="legend27")
+@Autonomous(name="ENCODED: Shoot/Beacon Auto Red", group="legend27")
 public class ShootAndBeaconRed extends LinearOpMode {
 
     private boolean redTeam = true;
@@ -59,20 +59,57 @@ public class ShootAndBeaconRed extends LinearOpMode {
         timer.reset();
         while(timer.seconds() < 1);
 
-        drivetrain.driveToP(10);
+        drivetrain.driveToP(12);
 
         timer.reset();
-        while (timer.seconds() < 1);
+        while (timer.seconds() < 0.5);
+
+        drivetrain.driveToP(2);
+
+        timer.reset();
+        while (timer.seconds() < 0.5);
 
         drivetrain.driveToP(-2);
-        drivetrain.driveToP(7);
+
+        timer.reset();
+        while (timer.seconds() < 0.5);
+
+        if (beaconActivator.isRed() != redTeam) {
+            drivetrain.driveToP(4);
+        }
+
+        drivetrain.driveToP(-10);
+
+        timer.reset();
+        while(timer.seconds() < 0.5);
+
+        drivetrain.turnToP(95);
+
+        timer.reset();
+        while(timer.seconds() < 0.5);
+
+        drivetrain.driveToP(44);
+
+        timer.reset();
+        while (timer.seconds() < 0.5);
+
+        drivetrain.turnToP(-105);
+
+        if (beaconActivator.isRed() != redTeam) {
+            drivetrain.driveToP(4);
+        }
 
         timer.reset();
         while (timer.seconds() < 8);
 
-        if (beaconActivator.isRed() != redTeam) {
-            drivetrain.driveToP(-2);
-            drivetrain.driveToP(4);
-        }
+        drivetrain.driveTo(4);
+
+        telemetry.addData("isRed", beaconActivator.isRed());
+        telemetry.addData("Red", beaconActivator.getRawColors()[1]);
+        telemetry.addData("Green", beaconActivator.getRawColors()[2]);
+        telemetry.addData("Blue", beaconActivator.getRawColors()[3]);
+        telemetry.update();
+
+
     }
 }
