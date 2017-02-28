@@ -56,16 +56,6 @@ public class Drivetrain {
         };
     }
 
-    public void driveTo(double position) {
-        double rotations = position / (WHEEL_DIAMETER * Math.PI);
-
-        resetEncoder();
-
-        tankDrive(0.75, 0.75);
-        while(leftDriveMotor.getCurrentPosition() < rotations * TICKS_PER_ROTATION && rightDriveMotor.getCurrentPosition() < rotations * TICKS_PER_ROTATION);
-        stop();
-    }
-
     public void driveToP(double position) {
         double rotations = position / (WHEEL_DIAMETER * Math.PI);
         double[] power = {1, 1};
@@ -86,16 +76,6 @@ public class Drivetrain {
         stop();
     }
 
-    public void turnTo(double angle) {
-
-        double rotations = angle / 180 * Math.PI;
-
-        resetEncoder();
-
-        tankDrive(0.75, 0);
-        while(leftDriveMotor.getCurrentPosition() < rotations * TICKS_PER_ROTATION);
-        stop();
-    }
 
     public void turnToP(double angle) {
         resetEncoder();

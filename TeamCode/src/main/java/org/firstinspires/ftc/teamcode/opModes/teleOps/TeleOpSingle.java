@@ -3,22 +3,22 @@ package org.firstinspires.ftc.teamcode.opModes.teleOps;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.subsystems.*;
+import org.firstinspires.ftc.teamcode.subsystems.Catapult;
+import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
+import org.firstinspires.ftc.teamcode.subsystems.Intake;
 
-@TeleOp(name="legend27: TeleOp Single", group="legend27")
+@TeleOp(name="legend27: TeleOp Single NO COLOR SENSOR", group="legend27")
 public class TeleOpSingle extends OpMode {
 
     private Catapult catapult;
     private Drivetrain drivetrain;
     private Intake intake;
-    private BeaconActivator beaconActivator;
-    
+
     @Override
     public void init() {
         drivetrain = new Drivetrain(hardwareMap.dcMotor.get("left_drive"), hardwareMap.dcMotor.get("right_drive"));
         intake = new Intake(hardwareMap.dcMotor.get("intake"));
         catapult = new Catapult(hardwareMap.dcMotor.get("catapult"));
-        beaconActivator = new BeaconActivator(hardwareMap.colorSensor.get("sensor"), hardwareMap.deviceInterfaceModule.get("dim"), hardwareMap.led.get("led"));
     }
 
     @Override
@@ -36,10 +36,6 @@ public class TeleOpSingle extends OpMode {
         catapultControls();
         telemetry.addData("Catapult Position", catapult.getPosition());
         telemetry.addData("Drive Position", drivetrain.getPosition()[0] + ", " + drivetrain.getPosition()[1]);
-        telemetry.addData("isRed", beaconActivator.isRed());
-        telemetry.addData("Red", beaconActivator.getRawColors()[1]);
-        telemetry.addData("Green", beaconActivator.getRawColors()[2]);
-        telemetry.addData("Blue", beaconActivator.getRawColors()[3]);
     }
 
     public void stop() {
