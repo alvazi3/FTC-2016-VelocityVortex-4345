@@ -2,9 +2,10 @@ package org.firstinspires.ftc.teamcode.opModes.autos.encoded.blue;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.DeviceInterfaceModule;
+import com.qualcomm.robotcore.hardware.LED;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
-import org.firstinspires.ftc.teamcode.subsystems.BeaconActivator;
 import org.firstinspires.ftc.teamcode.subsystems.Catapult;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
@@ -19,7 +20,19 @@ public class ShootAndBeaconBlue extends LinearOpMode {
     private Catapult catapult;
     private Drivetrain drivetrain;
     private Intake intake;
-    private BeaconActivator beaconActivator;
+    private ColorSensor sensor;
+    private DeviceInterfaceModule dim;
+    private LED led;
+
+    public void setUp() {
+        timer = new ElapsedTime();
+        drivetrain = new Drivetrain(hardwareMap.dcMotor.get("left_drive"), hardwareMap.dcMotor.get("right_drive"));
+        intake = new Intake(hardwareMap.dcMotor.get("intake"));
+        catapult = new Catapult(hardwareMap.dcMotor.get("catapult"));
+        dim = hardwareMap.deviceInterfaceModule.get("dim");
+        sensor = hardwareMap.colorSensor.get("sensor");
+        led = hardwareMap.led.get("led");
+    }
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -28,51 +41,51 @@ public class ShootAndBeaconBlue extends LinearOpMode {
         drivetrain = new Drivetrain(hardwareMap.dcMotor.get("left_drive"), hardwareMap.dcMotor.get("right_drive"));
         intake = new Intake(hardwareMap.dcMotor.get("intake"));
         catapult = new Catapult(hardwareMap.dcMotor.get("catapult"));
-        beaconActivator = new BeaconActivator(hardwareMap.colorSensor.get("sensor"), hardwareMap.deviceInterfaceModule.get("dim"), hardwareMap.led.get("led"));
+
 
         waitForStart();
 
         catapult.catapultBall(1.05, .25);
 
         timer.reset();
-        while(timer.seconds() < 2 && opModeIsActive());
+        while (timer.seconds() < 2 && opModeIsActive()) ;
 
         catapult.catapultBall(1.05, .25);
 
         drivetrain.driveToP(30);
 
         timer.reset();
-        while(timer.seconds() < 1);
+        while (timer.seconds() < 1) ;
 
-        drivetrain.turnToP(45);
-
-        timer.reset();
-        while(timer.seconds() < 1);
-
-        drivetrain.driveToP(35);
+        drivetrain.turnToP(-75);
 
         timer.reset();
-        while(timer.seconds() < 1);
+        while (timer.seconds() < 1) ;
 
-        drivetrain.turnToP(45);
-
-        timer.reset();
-        while(timer.seconds() < 1);
-
-        drivetrain.driveToP(10);
+        drivetrain.driveToP(45);
 
         timer.reset();
-        while (timer.seconds() < 1);
+        while (timer.seconds() < 1) ;
+
+        drivetrain.turnToP(-65);
+
+        timer.reset();
+        while (timer.seconds() < 0.5) ;
+
+        drivetrain.driveToP(14);
+
+        timer.reset();
+        while (timer.seconds() < 0.5) ;
 
         drivetrain.driveToP(-2);
-        drivetrain.driveToP(7);
 
         timer.reset();
-        while (timer.seconds() < 8);
+        while (timer.seconds() < 0.5) ;
 
-        if (beaconActivator.isRed() != redTeam) {
-            drivetrain.driveToP(-2);
+        if (sensor.red() > sensor.blue() != redTeam) {
             drivetrain.driveToP(4);
         }
+
+        drivetrain.driveToP(-48);
     }
 }
