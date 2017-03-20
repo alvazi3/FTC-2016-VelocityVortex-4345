@@ -13,6 +13,7 @@ public class Catapult {
     private DcMotor chooChooMotor;
     private boolean isHolding;
 
+    //creates catapult subsystem with chooChooMotor as drive motor
     public Catapult(DcMotor chooChooMotor) {
         this.chooChooMotor = chooChooMotor;
         this.chooChooMotor.setDirection(DcMotor.Direction.FORWARD);
@@ -22,26 +23,29 @@ public class Catapult {
         stop();
     }
 
+    //rotates catapult - for bringing into firing position or manually firing
     public void rotate() {
         isHolding = false;
         chooChooMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         chooChooMotor.setPower(0.5);
     }
 
+    //stops motor
     public void stop() {
         chooChooMotor.setPower(0);
     }
 
+    //resets encoder - restarting from untensioned state
     public void resetEncoder() {
         isHolding = false;
         chooChooMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         chooChooMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
+    //sets catapult arm to position?
     public void catapultBall(double rotations, double power) {
         isHolding = false;
         resetEncoder();
-
         while(chooChooMotor.getCurrentPosition() < TICKS_PER_ROTATION * rotations) {
             chooChooMotor.setPower(power);
         }
@@ -49,6 +53,7 @@ public class Catapult {
         holdPosition();
     }
 
+    //holds arm at position
     public void holdPosition() {
         isHolding = true;
         chooChooMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -57,6 +62,7 @@ public class Catapult {
         chooChooMotor.setTargetPosition(0);
     }
 
+    //getter methods
     public int getPosition() {
         return chooChooMotor.getCurrentPosition();
     }

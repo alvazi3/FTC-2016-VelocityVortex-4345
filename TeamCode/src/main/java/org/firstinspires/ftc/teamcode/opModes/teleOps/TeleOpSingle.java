@@ -14,6 +14,7 @@ public class TeleOpSingle extends OpMode {
     private Drivetrain drivetrain;
     private Intake intake;
 
+    //initiates subsystems
     @Override
     public void init() {
         drivetrain = new Drivetrain(hardwareMap.dcMotor.get("left_drive"), hardwareMap.dcMotor.get("right_drive"));
@@ -21,6 +22,7 @@ public class TeleOpSingle extends OpMode {
         catapult = new Catapult(hardwareMap.dcMotor.get("catapult"));
     }
 
+    //sets all motor powers to 0
     @Override
     public void start() {
         drivetrain.stop();
@@ -38,12 +40,14 @@ public class TeleOpSingle extends OpMode {
         telemetry.addData("Drive Position", drivetrain.getPosition()[0] + ", " + drivetrain.getPosition()[1]);
     }
 
+    //stops motors
     public void stop() {
         drivetrain.stop();
         intake.stop();
         catapult.stop();
     }
 
+    //gets state of gamepad controls that controls catapult
     private void catapultControls() {
         if (gamepad1.x) {
             catapult.rotate();
@@ -69,6 +73,7 @@ public class TeleOpSingle extends OpMode {
 
     }
 
+    //gets state of gamepad controls that control intake
     private void intakeControls() {
         if (gamepad1.b) {
             intake.rollIn();

@@ -25,7 +25,8 @@ public class ShootAndBeaconRed extends LinearOpMode {
     private DeviceInterfaceModule dim;
     private LED led;
 
-    public void setUp() {
+    //unused
+    /*public void setUp() {
         timer = new ElapsedTime();
         drivetrain = new Drivetrain(hardwareMap.dcMotor.get("left_drive"), hardwareMap.dcMotor.get("right_drive"));
         intake = new Intake(hardwareMap.dcMotor.get("intake"));
@@ -33,7 +34,7 @@ public class ShootAndBeaconRed extends LinearOpMode {
         dim = hardwareMap.deviceInterfaceModule.get("dim");
         sensor = hardwareMap.colorSensor.get("sensor");
         led = hardwareMap.led.get("led");
-    }
+    }*/
 
     @Override
     public void runOpMode() throws InterruptedException {

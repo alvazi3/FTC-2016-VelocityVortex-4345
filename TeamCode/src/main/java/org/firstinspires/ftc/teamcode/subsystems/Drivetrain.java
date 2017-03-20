@@ -12,6 +12,7 @@ public class Drivetrain {
 
     private DcMotor leftDriveMotor, rightDriveMotor;
 
+    //creates new drivetrain subsystem from motors
     public Drivetrain(DcMotor leftDriveMotor, DcMotor rightDriveMotor) {
         this.leftDriveMotor = leftDriveMotor;
         this.rightDriveMotor = rightDriveMotor;
@@ -26,11 +27,13 @@ public class Drivetrain {
         stop();
     }
 
+    //sets power using tank drive control scheme
     public void tankDrive(double leftPower, double rightPower) {
         leftDriveMotor.setPower(leftPower);
         rightDriveMotor.setPower(rightPower);
     }
 
+    //sets power using arcade drive control scheme
     public void arcadeDrive(double power, double turn) {
         double leftPower = Range.clip(power + turn, -1, 1);
         double rightPower = Range.clip(power - turn, -1, 1);
@@ -38,10 +41,12 @@ public class Drivetrain {
         tankDrive(leftPower, rightPower);
     }
 
+    //stops motors
     public void stop() {
         tankDrive(0, 0);
     }
 
+    //reset encoder settings
     public void resetEncoder() {
         leftDriveMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightDriveMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -49,6 +54,7 @@ public class Drivetrain {
         rightDriveMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
+    //gets position of motors as an int array of size 2
     public int[] getPosition() {
         return new int[] {
                 leftDriveMotor.getCurrentPosition(),
@@ -56,6 +62,7 @@ public class Drivetrain {
         };
     }
 
+    //drives forward a certain distance
     public void driveToP(double position) {
         double rotations = position / (WHEEL_DIAMETER * Math.PI);
         double[] power = {1, 1};
@@ -76,7 +83,7 @@ public class Drivetrain {
         stop();
     }
 
-
+    //rotates to certain angle
     public void turnToP(double angle) {
         resetEncoder();
         double rotations = angle / 180 * 3.9;

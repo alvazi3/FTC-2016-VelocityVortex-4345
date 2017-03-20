@@ -12,6 +12,7 @@ public class Intake {
 
     private DcMotor intakeMotor;
 
+    //creates intake object with intakeMotor as the drive motor
     public Intake(DcMotor intakeMotor) {
         this.intakeMotor = intakeMotor;
 
@@ -22,18 +23,22 @@ public class Intake {
         stop();
     }
 
+    //intakes field objects
     public void rollIn() {
         intakeMotor.setPower(1);
     }
 
+    //reverses intake motor - note: can't outtake field objects once inside robot
     public void rollOut() {
         intakeMotor.setPower(-1);
     }
 
+    //stops intake motor
     public void stop() {
         intakeMotor.setPower(0);
     }
 
+    //rotates the intake motor a certain number of revolutions
     public void rotate(double rotations) throws InterruptedException {
         ElapsedTime timer = new ElapsedTime();
         timer.reset();
